@@ -4,13 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 
+import { AngularMaterialModule } from './angular-material/angular-material-module';
+import { ComponentsModule } from './components/components-module';
+
 @NgModule({
   declarations: [
     App
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularMaterialModule,
+    ComponentsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()
