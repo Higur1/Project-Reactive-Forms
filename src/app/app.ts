@@ -9,26 +9,26 @@ import { CitiesService } from './services/cities.service';
   standalone: false,
   styleUrl: './app.scss'
 })
-export class App implements OnInit{
+export class App implements OnInit {
   constructor(
     private readonly _countriesService: CountriesService,
     private readonly _statesService: StatesService,
     private readonly _citiesService: CitiesService
 
-  ){}
+  ) { }
   protected readonly title = signal('projeto-reactive-forms');
 
   ngOnInit() {
     this._countriesService.getCountries().subscribe((countriesResponse: any) => {
-      console.log(countriesResponse);
+      console.log('countriesResponse', countriesResponse);
     });
 
     this._statesService.getStates('Brazil').subscribe((statesResponse) => {
-      console.log(statesResponse);
+      console.log('statesResponse', statesResponse);
     })
 
     this._citiesService.getCities('Brazil', 'São Paulo').subscribe((citiesResponse) => {
-      console.log(citiesResponse)
+      console.log('citiesResponse', citiesResponse)
     })
   }
 }
