@@ -1,42 +1,45 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { MaritalStatusEnum } from "../enums/marital-status.enum";
+import { PhoneTypeEnum } from "../enums/phone-type.enum";
+import { AddressTypeEnum } from "../enums/address-type.enum";
 
 @Injectable({
     providedIn: 'root'
 })
-export class UsersService{
+export class UsersService {
     private readonly usersList: any[] = [
         {
             name: 'Fulano',
             email: 'fulano@hotmail.com',
             country: 'Brazil',
             state: 'São Paulo',
-            maritalStatus: 1, // -> Estado Civil // -> Solteiro
-            monthlyIncome: 5000, // -> Renda Mensal
+            maritalStatus: MaritalStatusEnum.SINGLE,
+            monthlyIncome: 5000,
             birthDate: '25/02/1991',
             phoneList: [
                 {
-                    type: 1, // -> Residencial
-                    areaCode: '11', // -> DDD
-                    internationalCode: '+55', // -> DDI
-                    number: '1234-5678', // -> Número
+                    type: PhoneTypeEnum.RESIDENTIAL,
+                    areaCode: '11',
+                    internationalCode: '+55',
+                    number: '1234-5678',
                 },
                 {
-                    type: 2, // -> Celular
-                    areaCode: '11', // -> DDD
-                    internationalCode: '+55', // -> DDI
-                    number: '91111-2222', // -> Número
+                    type: PhoneTypeEnum.MOBILE,
+                    areaCode: '11',
+                    internationalCode: '+55',
+                    number: '91111-2222',
                 },
                 {
-                     type: 3, // -> Emergência
-                     areaCode: '11', // -> DDD
-                     internationalCode: '+55', // -> DDI
-                     number: '93333-4444', // -> Número
+                    type: PhoneTypeEnum.EMERGENCY,
+                    areaCode: '11',
+                    internationalCode: '+55',
+                    number: '93333-4444',
                 },
             ],
             addressList: [
                 {
-                    type: 1, // -> Residencial
+                    type: AddressTypeEnum.RESIDENTIAL,
                     street: 'Rua de Tal',
                     complement: 'Próximo ao parque',
                     country: 'Brazil',
@@ -44,15 +47,15 @@ export class UsersService{
                     city: 'Ribeirão Preto',
                 },
                 {
-                     type: 2, // -> Trabalho
-                     street: 'Avenida de Tal',
-                     complement: 'Próximo ao centro comercial',
-                     country: 'Brazil',
-                     state: 'São Paulo',
-                     city: 'Santos',
+                    type: AddressTypeEnum.WORK,
+                    street: 'Avenida de Tal',
+                    complement: 'Próximo ao centro comercial',
+                    country: 'Brazil',
+                    state: 'São Paulo',
+                    city: 'Santos',
                 },
                 {
-                    type: 3, // -> Alternativo
+                    type: AddressTypeEnum.ALTERNATIVE,
                     street: 'Estrada de Tal',
                     complement: 'Próximo ao shopping',
                     country: 'Brazil',
@@ -78,20 +81,20 @@ export class UsersService{
             email: 'laura@hotmail.com',
             country: 'Brazil',
             state: 'São Paulo',
-            maritalStatus: 2, // -> Estado Civil // -> Casada
-            monthlyIncome: 6000, // -> Renda Mensal
+            maritalStatus: MaritalStatusEnum.MARRIED,
+            monthlyIncome: 6000,
             birthDate: '12/12/1994',
             phoneList: [
                 {
-                    type: 3, // -> Emergência
-                    areaCode: '11', // -> DDD
-                    internationalCode: '+55', // -> DDI
-                    number: '93333-7777', // -> Número
+                    type: PhoneTypeEnum.EMERGENCY,
+                    areaCode: '11',
+                    internationalCode: '+55',
+                    number: '93333-7777',
                 },
             ],
             addressList: [
                 {
-                    type: 2, // -> Trabalho
+                    type: AddressTypeEnum.WORK,
                     street: 'Avenida de Tal',
                     complement: 'Próximo ao centro comercial',
                     country: 'Brazil',
@@ -112,20 +115,20 @@ export class UsersService{
             email: 'marcos@hotmail.com',
             country: 'Brazil',
             state: 'São Paulo',
-            maritalStatus: 3, // -> Estado Civil // -> Divorciado
-            monthlyIncome: 7000, // -> Renda Mensal
+            maritalStatus: MaritalStatusEnum.DIVORCED,
+            monthlyIncome: 7000,
             birthDate: '11/11/1991',
             phoneList: [
                 {
-                    type: 2, // -> Celular
-                    areaCode: '11', // -> DDD
-                    internationalCode: '+55', // -> DDI
-                    number: '91111-7777', // -> Número
+                    type: PhoneTypeEnum.MOBILE,
+                    areaCode: '11',
+                    internationalCode: '+55',
+                    number: '91111-7777',
                 },
             ],
             addressList: [
                 {
-                    type: 3, // -> Alternativo
+                    type: AddressTypeEnum.ALTERNATIVE,
                     street: 'Estrada de Tal',
                     complement: 'Próximo ao shopping',
                     country: 'Brazil',
@@ -136,7 +139,7 @@ export class UsersService{
             dependentsList: [],
         }
     ];
-    getUsers(){
+    getUsers() {
         return new Observable((observer) => {
             setTimeout(() => {
                 observer.next([this.usersList]);
