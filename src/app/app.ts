@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { CountriesService } from './services/countries.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,15 @@ import { Component, signal } from '@angular/core';
   standalone: false,
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit{
+  constructor(
+    private readonly _countriesService: CountriesService
+  ){}
   protected readonly title = signal('projeto-reactive-forms');
+
+  ngOnInit() {
+    this._countriesService.getCountries().subscribe((countriesResponse: any) => {
+      console.log(countriesResponse)
+    });
+  }
 }
