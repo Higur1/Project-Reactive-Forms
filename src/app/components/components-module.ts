@@ -8,12 +8,15 @@ import { GeneralInformations } from './general-informations/general-informations
 import { UserInfoItem } from './user-info-item/user-info-item';
 import { ContactInformations } from './contact-informations/contact-informations';
 
+import { ContactPhoneList } from './contact-informations/components/contact-phone-list/contact-phone-list';
+
 @NgModule({
     declarations: [
         UsersList,
         GeneralInformations,
         UserInfoItem,
-        ContactInformations
+        ContactInformations,
+        ContactPhoneList
     ],
     imports: [
         CommonModule,
