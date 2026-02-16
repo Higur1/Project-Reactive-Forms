@@ -6,12 +6,14 @@ import { UsersList } from './users-list/users-list';
 import { CommonModule } from "@angular/common";
 import { GeneralInformations } from './general-informations/general-informations';
 import { UserInfoItem } from './user-info-item/user-info-item';
+import { ContactInformations } from './contact-informations/contact-informations';
 
 @NgModule({
     declarations: [
         UsersList,
         GeneralInformations,
-        UserInfoItem
+        UserInfoItem,
+        ContactInformations
     ],
     imports: [
         CommonModule,
@@ -20,7 +22,8 @@ import { UserInfoItem } from './user-info-item/user-info-item';
     ],
     exports: [
         UsersList,
-        GeneralInformations
+        GeneralInformations,
+        ContactInformations
     ]
 })
 export class ComponentsModule { }
