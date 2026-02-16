@@ -5,11 +5,13 @@ import { PipesModule } from "../pipes/pipes-module";
 import { UsersList } from './users-list/users-list';
 import { CommonModule } from "@angular/common";
 import { GeneralInformations } from './general-informations/general-informations';
+import { UserInfoItem } from './user-info-item/user-info-item';
 
 @NgModule({
     declarations: [
         UsersList,
-        GeneralInformations
+        GeneralInformations,
+        UserInfoItem
     ],
     imports: [
         CommonModule,
