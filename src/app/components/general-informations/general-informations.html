@@ -8,7 +8,7 @@
         <app-user-info-item title="State" [text]="user?.state"></app-user-info-item>
     </div>
     <div class="p-4 grid lg:grid-cols-3 gap-4">
-        <app-user-info-item title="Martial Status" [text]="user?.maritalStatus?.toString()"></app-user-info-item>
+        <app-user-info-item title="Martial Status" [text]="user?.maritalStatus | maritalStatus"></app-user-info-item>
         <app-user-info-item title="Monthly Income" [text]="user?.monthlyIncome?.toString()"></app-user-info-item>
         <app-user-info-item title="Birth Date" [text]="user?.birthDate"></app-user-info-item>
     </div>
