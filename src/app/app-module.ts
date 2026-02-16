@@ -8,6 +8,11 @@ import { AngularMaterialModule } from './angular-material/angular-material-modul
 import { ComponentsModule } from './components/components-module';
 import { HttpClientModule } from '@angular/common/http';
 
+import localPt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localPt, 'pt-BR');
+
 @NgModule({
   declarations: [
     App
