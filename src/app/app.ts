@@ -3,6 +3,8 @@ import { CountriesService } from './services/countries.service';
 import { StatesService } from './services/states.service';
 import { CitiesService } from './services/cities.service';
 import { UsersService } from './services/users.service';
+import { UsersListResponse } from './types/users-list-response';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,8 @@ import { UsersService } from './services/users.service';
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
+  usersList: UsersListResponse = [];
+
   constructor(
     private readonly _countriesService: CountriesService,
     private readonly _statesService: StatesService,
@@ -21,20 +25,21 @@ export class App implements OnInit {
   protected readonly title = signal('projeto-reactive-forms');
 
   ngOnInit() {
-    this._countriesService.getCountries().subscribe((countriesResponse: any) => {
-      console.log('countriesResponse', countriesResponse);
-    });
+    /*  this._countriesService.getCountries().subscribe((countriesResponse: any) => {
+       console.log('countriesResponse', countriesResponse);
+     });
+ 
+     this._statesService.getStates('Brazil').subscribe((statesResponse) => {
+       console.log('statesResponse', statesResponse);
+     });
+ 
+     this._citiesService.getCities('Brazil', 'São Paulo').subscribe((citiesResponse) => {
+       console.log('citiesResponse', citiesResponse);
+     }); */
 
-    this._statesService.getStates('Brazil').subscribe((statesResponse) => {
-      console.log('statesResponse', statesResponse);
-    });
-
-    this._citiesService.getCities('Brazil', 'São Paulo').subscribe((citiesResponse) => {
-      console.log('citiesResponse', citiesResponse);
-    });
-
-    this._usersService.getUsers().subscribe((usersResponse) => {
-      console.log('usersReponse', usersResponse);
-    });
+    this._usersService.getUsers().pipe(take(1)).subscribe((usersListResponse) => {
+      this.usersList = usersListResponse
+    }
+    );
   }
 }
