@@ -4,10 +4,12 @@ import { AngularMaterialModule } from "../angular-material/angular-material-modu
 import { PipesModule } from "../pipes/pipes-module";
 import { UsersList } from './users-list/users-list';
 import { CommonModule } from "@angular/common";
+import { GeneralInformations } from './general-informations/general-informations';
 
 @NgModule({
     declarations: [
-        UsersList
+        UsersList,
+        GeneralInformations
     ],
     imports: [
         CommonModule,
@@ -15,7 +17,8 @@ import { CommonModule } from "@angular/common";
         PipesModule
     ],
     exports: [
-        UsersList
+        UsersList,
+        GeneralInformations
     ]
 })
 export class ComponentsModule { }
