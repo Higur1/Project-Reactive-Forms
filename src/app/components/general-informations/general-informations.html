@@ -1,33 +1,15 @@
 <div class="p-4">
     <div class="p-4 grid lg:grid-cols-3 gap-4">
-        <app-user-info-item title="Name" [text]="'F'"></app-user-info-item>
-        <div>
-            <p class="text-xl font-semibold">Email:</p>
-            <p class="text-lg">{{'x'}}</p>
-        </div>
+        <app-user-info-item title="Name" [text]="user?.name"></app-user-info-item>
+        <app-user-info-item title="Email" [text]="user?.email"></app-user-info-item>
     </div>
     <div class="p-4 grid lg:grid-cols-3 gap-4">
-        <div>
-            <p class="text-xl font-semibold">Country:</p>
-            <p class="text-lg">X</p>
-        </div>
-        <div>
-            <p class="text-xl font-semibold">State:</p>
-            <p class="text-lg">X</p>
-        </div>
+        <app-user-info-item title="Country" [text]="user?.country"></app-user-info-item>
+        <app-user-info-item title="State" [text]="user?.state"></app-user-info-item>
     </div>
     <div class="p-4 grid lg:grid-cols-3 gap-4">
-        <div>
-            <p class="text-xl font-semibold">MartialStatus:</p>
-            <p class="text-lg">Single</p>
-        </div>
-        <div>
-            <p class="text-xl font-semibold">MonthlyIncome:</p>
-            <p class="text-lg">R$ 5000,00</p>
-        </div>
-        <div>
-            <p class="text-xl font-semibold">BirthDate:</p>
-            <p class="text-lg">14/02</p>
-        </div>
+        <app-user-info-item title="Martial Status" [text]="user?.maritalStatus?.toString()"></app-user-info-item>
+        <app-user-info-item title="Monthly Income" [text]="user?.monthlyIncome?.toString()"></app-user-info-item>
+        <app-user-info-item title="Birth Date" [text]="user?.birthDate"></app-user-info-item>
     </div>
 </div>
