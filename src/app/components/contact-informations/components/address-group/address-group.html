@@ -1,0 +1,10 @@
+<div *ngFor="let address of userAddressList">
+     <div class="p-4 grid sm:grid-cols-2 lg:grid-cols-3">
+       <app-user-info-item title="Type" [text]="address?.type?.toString()"></app-user-info-item>
+       <app-user-info-item title="Street" [text]="address?.street"></app-user-info-item>
+       <app-user-info-item title="Complement" [text]="address?.complement"></app-user-info-item>
+       <app-user-info-item title="Country" [text]="address?.country"></app-user-info-item>
+       <app-user-info-item title="State" [text]="address?.state"></app-user-info-item>
+       <app-user-info-item title="City" [text]="address?.city"></app-user-info-item>
+    </div>
+</div>

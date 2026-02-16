@@ -9,6 +9,7 @@ import { UserInfoItem } from './user-info-item/user-info-item';
 import { ContactInformations } from './contact-informations/contact-informations';
 
 import { ContactPhoneList } from './contact-informations/components/contact-phone-list/contact-phone-list';
+import { AddressGroup } from './contact-informations/components/address-group/address-group';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { ContactPhoneList } from './contact-informations/components/contact-phon
         GeneralInformations,
         UserInfoItem,
         ContactInformations,
-        ContactPhoneList
+        ContactPhoneList,
+        AddressGroup
     ],
     imports: [
         CommonModule,
