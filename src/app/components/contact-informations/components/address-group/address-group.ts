@@ -1,5 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AddressList } from '../../../../types/address-list';
+import { AddressTypeEnum } from '../../../../enums/address-type.enum';
+import { IAddress } from '../../../../interfaces/user/address.interface';
+
+
+export const addressTypeDescriptionMap: { [key in AddressTypeEnum]: string } = {
+  [AddressTypeEnum.RESIDENTIAL]: 'Residential',
+  [AddressTypeEnum.WORK]: 'Work',
+  [AddressTypeEnum.ALTERNATIVE]: 'Alternative'
+};
 
 @Component({
   selector: 'app-address-group',
@@ -7,6 +16,45 @@ import { AddressList } from '../../../../types/address-list';
   templateUrl: './address-group.html',
   styleUrl: './address-group.scss',
 })
-export class AddressGroup {
-  @Input({ required: true}) userAddressList: AddressList | undefined = [];
+export class AddressGroup implements OnChanges {
+
+
+  addressListToDisplay: any[] = [];
+  @Input({ required: true }) userAddressList: AddressList | undefined = [];
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    const ADDRESS_LIST_LOADED = Array.isArray(changes['userAddressList'].currentValue);
+
+    if (ADDRESS_LIST_LOADED) {
+      this.prepareAddressListToDisplay();
+    }
+  }
+  prepareAddressListToDisplay() {
+    this.addressListToDisplay = [];
+
+    Object.keys(addressTypeDescriptionMap).map(Number).forEach((addressType: number) => {
+      const addressFound = this.userAddressList?.find((userAddress) =>userAddress.type === addressType)
+
+      this.addressListToDisplay.push(this.returnAddressToDisplay(addressFound, addressType));
+    })
+  }
+  returnAddressToDisplay(address: IAddress | undefined, addressType: number): any {
+    if (!address) {
+      return {
+        typeDescription: addressTypeDescriptionMap[addressType as AddressTypeEnum],
+        type: addressType,
+        street: '-',
+        complement: '-',
+        country: '-',
+        state: '-',
+        city: '-'
+      };
+    }
+    return {
+      typeDescription: addressTypeDescriptionMap[addressType as AddressTypeEnum],
+      ...address,
+    };
+  }
 }
