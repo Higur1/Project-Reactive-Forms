@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DependentsList } from '../../types/dependents-list';
 
 @Component({
   selector: 'app-user-dependents-list',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './user-dependents-list.scss',
 })
 export class UserDependentsList {
-
+  @Input({ required: true}) dependentsList: DependentsList | undefined = [];
 }
