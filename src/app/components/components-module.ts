@@ -10,6 +10,7 @@ import { ContactInformations } from './contact-informations/contact-informations
 
 import { ContactPhoneList } from './contact-informations/components/contact-phone-list/contact-phone-list';
 import { AddressGroup } from './contact-informations/components/address-group/address-group';
+import { UserDependentsList } from './user-dependents-list/user-dependents-list';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { AddressGroup } from './contact-informations/components/address-group/ad
         UserInfoItem,
         ContactInformations,
         ContactPhoneList,
-        AddressGroup
+        AddressGroup,
+        UserDependentsList
     ],
     imports: [
         CommonModule,
@@ -28,7 +30,8 @@ import { AddressGroup } from './contact-informations/components/address-group/ad
     exports: [
         UsersList,
         GeneralInformations,
-        ContactInformations
+        ContactInformations,
+        UserDependentsList
     ]
 })
 export class ComponentsModule { }
