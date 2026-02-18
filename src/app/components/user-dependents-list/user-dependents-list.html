@@ -1,8 +1,18 @@
-<div *ngFor="let dependent of dependentsList">
+<div class="p-4">
     <p class="text-2xl font-semibold">Dependents:</p>
-    <div class="grid sm:grid-cols-3">
-        <app-user-info-item title="Name" [text]="dependent?.name"></app-user-info-item>
-        <app-user-info-item title="Age" [text]="dependent?.age?.toString()"></app-user-info-item>
-        <app-user-info-item title="Document" [text]="dependent?.document?.toString()"></app-user-info-item>
-    </div>
+    <ng-container *ngIf="dependentsList?.length==0; else dependentsListTemplate">
+        <div>
+            <p class="text-lg">The user has no dependents.</p>
+        </div>
+    </ng-container>
+
+    <ng-template #dependentsListTemplate>
+        <div *ngFor="let dependent of dependentsList">
+            <div class="grid sm:grid-cols-3">
+                <app-user-info-item title="Name" [text]="dependent?.name"></app-user-info-item>
+                <app-user-info-item title="Age" [text]="dependent?.age?.toString()"></app-user-info-item>
+                <app-user-info-item title="Document" [text]="dependent?.document?.toString()"></app-user-info-item>
+            </div>
+        </div>
+    </ng-template>
 </div>
