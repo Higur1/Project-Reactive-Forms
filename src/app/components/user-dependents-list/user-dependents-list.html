@@ -11,7 +11,7 @@
             <div class="grid sm:grid-cols-3">
                 <app-user-info-item title="Name" [text]="dependent?.name"></app-user-info-item>
                 <app-user-info-item title="Age" [text]="dependent?.age?.toString()"></app-user-info-item>
-                <app-user-info-item title="Document" [text]="dependent?.document?.toString()"></app-user-info-item>
+                <app-user-info-item title="Document" [text]="dependent.document | cpf : true"></app-user-info-item>
             </div>
         </div>
     </ng-template>
