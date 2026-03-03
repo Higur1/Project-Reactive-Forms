@@ -15,6 +15,7 @@ import { ButtonsConteiners } from './buttons-conteiners/buttons-conteiners';
 import { UserInformationsContainer } from './user-informations-container/user-informations-container';
 import { GeneralInformationsEdit } from './general-informations-edit/general-informations-edit';
 import { ContactInformationsEdit } from './contact-informations-edit/contact-informations-edit';
+import { ContactPhoneEdit } from './contact-informations-edit/components/contact-phone-edit/contact-phone-edit';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { ContactInformationsEdit } from './contact-informations-edit/contact-inf
         ButtonsConteiners,
         UserInformationsContainer,
         GeneralInformationsEdit,
-        ContactInformationsEdit
+        ContactInformationsEdit,
+        ContactPhoneEdit
     ],
     imports: [
         CommonModule,
