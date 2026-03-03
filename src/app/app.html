@@ -6,6 +6,8 @@
             </app-users-list>
 
             <ng-template #loading></ng-template>
+            <app-buttons-conteiners [isInEditMode]="isInEditMode" (onEditButton)="onEditButton()"
+                (onCancelButton)="onCancelButton()" *ngIf="userSelected"></app-buttons-conteiners>
             <mat-tab-group [selectedIndex]="currentTabIndex" (selectedIndexChange)="currentTabIndex = $event"
                 *ngIf="userSelected">
                 <mat-tab label="General">

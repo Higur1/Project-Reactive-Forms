@@ -11,6 +11,7 @@ import { ContactInformations } from './contact-informations/contact-informations
 import { ContactPhoneList } from './contact-informations/components/contact-phone-list/contact-phone-list';
 import { AddressGroup } from './contact-informations/components/address-group/address-group';
 import { UserDependentsList } from './user-dependents-list/user-dependents-list';
+import { ButtonsConteiners } from './buttons-conteiners/buttons-conteiners';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { UserDependentsList } from './user-dependents-list/user-dependents-list'
         ContactInformations,
         ContactPhoneList,
         AddressGroup,
-        UserDependentsList
+        UserDependentsList,
+        ButtonsConteiners
     ],
     imports: [
         CommonModule,
@@ -31,7 +33,8 @@ import { UserDependentsList } from './user-dependents-list/user-dependents-list'
         UsersList,
         GeneralInformations,
         ContactInformations,
-        UserDependentsList
+        UserDependentsList,
+         ButtonsConteiners
     ]
 })
 export class ComponentsModule { }

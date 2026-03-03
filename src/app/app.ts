@@ -15,11 +15,13 @@ import { Observable } from 'rxjs';
 })
 export class App implements OnInit {
 
+
   usersList$!: Observable<UsersListResponse>;
   usersList: UsersListResponse = [];
   currentTabIndex: number = 0;
   userSelectedIndex: number | undefined;
   userSelected: IUser | undefined;
+  isInEditMode: boolean = false;
 
   constructor(
     private readonly _countriesService: CountriesService,
@@ -40,5 +42,12 @@ export class App implements OnInit {
       this.userSelected = structuredClone(userFound);
       this.currentTabIndex = 0;
     }
+  }
+
+  onCancelButton() {
+    this.isInEditMode = false;
+  }
+  onEditButton() {
+    this.isInEditMode = true;
   }
 }
