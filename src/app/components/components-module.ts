@@ -17,6 +17,7 @@ import { GeneralInformationsEdit } from './general-informations-edit/general-inf
 import { ContactInformationsEdit } from './contact-informations-edit/contact-informations-edit';
 import { ContactPhoneEdit } from './contact-informations-edit/components/contact-phone-edit/contact-phone-edit';
 import { AddressGroupEdit } from './contact-informations-edit/components/address-group-edit/address-group-edit';
+import { UserDependentsListEdit } from './user-dependents-list-edit/user-dependents-list-edit';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { AddressGroupEdit } from './contact-informations-edit/components/address
         GeneralInformationsEdit,
         ContactInformationsEdit,
         ContactPhoneEdit,
-        AddressGroupEdit
+        AddressGroupEdit,
+        UserDependentsListEdit
     ],
     imports: [
         CommonModule,
