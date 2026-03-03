@@ -13,6 +13,7 @@ import { AddressGroup } from './contact-informations/components/address-group/ad
 import { UserDependentsList } from './user-dependents-list/user-dependents-list';
 import { ButtonsConteiners } from './buttons-conteiners/buttons-conteiners';
 import { UserInformationsContainer } from './user-informations-container/user-informations-container';
+import { GeneralInformationsEdit } from './general-informations-edit/general-informations-edit';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { UserInformationsContainer } from './user-informations-container/user-in
         AddressGroup,
         UserDependentsList,
         ButtonsConteiners,
-        UserInformationsContainer
+        UserInformationsContainer,
+        GeneralInformationsEdit
     ],
     imports: [
         CommonModule,
