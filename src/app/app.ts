@@ -1,11 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CountriesService } from './services/countries.service';
 import { StatesService } from './services/states.service';
 import { CitiesService } from './services/cities.service';
 import { UsersService } from './services/users.service';
 import { UsersListResponse } from './types/users-list-response';
-import { take } from 'rxjs';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { IUser } from './interfaces/user/user.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -15,34 +15,30 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class App implements OnInit {
 
+  usersList$!: Observable<UsersListResponse>;
   usersList: UsersListResponse = [];
   currentTabIndex: number = 0;
+  userSelectedIndex: number | undefined;
+  userSelected: IUser | undefined;
 
   constructor(
     private readonly _countriesService: CountriesService,
     private readonly _statesService: StatesService,
     private readonly _citiesService: CitiesService,
     private readonly _usersService: UsersService
-
   ) { }
-  protected readonly title = signal('projeto-reactive-forms');
 
-  ngOnInit() {
-    /*  this._countriesService.getCountries().subscribe((countriesResponse: any) => {
-       console.log('countriesResponse', countriesResponse);
-     });
- 
-     this._statesService.getStates('Brazil').subscribe((statesResponse) => {
-       console.log('statesResponse', statesResponse);
-     });
- 
-     this._citiesService.getCities('Brazil', 'São Paulo').subscribe((citiesResponse) => {
-       console.log('citiesResponse', citiesResponse);
-     }); */
+  ngOnInit(): void {
+    this.usersList$ = this._usersService.getUsers();
+  }
 
-    this._usersService.getUsers().pipe(take(1)).subscribe((usersListResponse) => {
-      this.usersList = usersListResponse
+  onUserSelected(userIndex: number, usersList: UsersListResponse) {
+    const userFound = usersList[userIndex];
+
+    if (userFound) {
+      this.userSelectedIndex = userIndex;
+      this.userSelected = structuredClone(userFound);
+      this.currentTabIndex = 0;
     }
-    );
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { delay } from 'rxjs/operators';
 import { AddressTypeEnum } from "../enums/address-type.enum";
 import { MaritalStatusEnum } from "../enums/marital-status.enum";
 import { PhoneTypeEnum } from "../enums/phone-type.enum";
@@ -141,10 +142,6 @@ export class UsersService {
         }
     ];
     getUsers(): Observable<UsersListResponse> {
-        return new Observable<UsersListResponse>((observer) => {
-            setTimeout(() => {
-                observer.next(this.usersList);
-            }, 500)
-        });
+        return of(this.usersList).pipe(delay(500));
     }
 }
