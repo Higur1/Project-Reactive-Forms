@@ -16,6 +16,7 @@ import { UserInformationsContainer } from './user-informations-container/user-in
 import { GeneralInformationsEdit } from './general-informations-edit/general-informations-edit';
 import { ContactInformationsEdit } from './contact-informations-edit/contact-informations-edit';
 import { ContactPhoneEdit } from './contact-informations-edit/components/contact-phone-edit/contact-phone-edit';
+import { AddressGroupEdit } from './contact-informations-edit/components/address-group-edit/address-group-edit';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { ContactPhoneEdit } from './contact-informations-edit/components/contact
         UserInformationsContainer,
         GeneralInformationsEdit,
         ContactInformationsEdit,
-        ContactPhoneEdit
+        ContactPhoneEdit,
+        AddressGroupEdit
     ],
     imports: [
         CommonModule,
