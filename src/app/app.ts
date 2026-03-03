@@ -18,7 +18,6 @@ export class App implements OnInit {
 
   usersList$!: Observable<UsersListResponse>;
   usersList: UsersListResponse = [];
-  currentTabIndex: number = 0;
   userSelectedIndex: number | undefined;
   userSelected: IUser | undefined;
   isInEditMode: boolean = false;
@@ -40,7 +39,6 @@ export class App implements OnInit {
     if (userFound) {
       this.userSelectedIndex = userIndex;
       this.userSelected = structuredClone(userFound);
-      this.currentTabIndex = 0;
     }
   }
 
