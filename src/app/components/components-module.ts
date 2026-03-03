@@ -14,6 +14,7 @@ import { UserDependentsList } from './user-dependents-list/user-dependents-list'
 import { ButtonsConteiners } from './buttons-conteiners/buttons-conteiners';
 import { UserInformationsContainer } from './user-informations-container/user-informations-container';
 import { GeneralInformationsEdit } from './general-informations-edit/general-informations-edit';
+import { ContactInformationsEdit } from './contact-informations-edit/contact-informations-edit';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { GeneralInformationsEdit } from './general-informations-edit/general-inf
         UserDependentsList,
         ButtonsConteiners,
         UserInformationsContainer,
-        GeneralInformationsEdit
+        GeneralInformationsEdit,
+        ContactInformationsEdit
     ],
     imports: [
         CommonModule,
