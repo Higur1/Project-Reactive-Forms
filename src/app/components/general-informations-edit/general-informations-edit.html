@@ -4,10 +4,13 @@
             <mat-form-field class="w-full">
                 <mat-label>Name:</mat-label>
                 <input matInput placeholder="Example Name" formControlName="name">
+                <mat-error>The Name field is required.</mat-error>
             </mat-form-field>
             <mat-form-field class="w-full">
                 <mat-label>Email:</mat-label>
                 <input matInput placeholder="Example@email.com" formControlName="email">
+                <mat-error *ngIf="emailControl.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="emailControl.hasError('pattern')">Enter a valid email address</mat-error>
             </mat-form-field>
         </div>
         <div class="grid lg:grid-cols3 grp-4">
