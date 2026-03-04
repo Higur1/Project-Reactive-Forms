@@ -41,19 +41,12 @@ export class UserFormController {
 
         this.fulFillDependentsList(user.dependentsList);
     }
-    
+
     private resetUserForm() {
         this.userForm.reset();
 
-        this.generalInformations.reset();
-
-        this.phoneList.reset();
         this.phoneList.clear();
-
-        this.addressList.reset();
         this.addressList.clear();
-
-        this.dependentsList.reset();
         this.dependentsList.clear();
     }
 
