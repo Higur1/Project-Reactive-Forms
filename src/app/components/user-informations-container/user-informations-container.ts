@@ -1,6 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
+import { CountriesService } from '../../services/countries.service';
+import { take } from 'rxjs';
+import { CountriesList } from '../../types/countries-list';
 
 @Component({
   selector: 'app-user-informations-container',
@@ -8,13 +11,20 @@ import { UserFormController } from './user-form-controller';
   templateUrl: './user-informations-container.html',
   styleUrl: './user-informations-container.scss',
 })
-export class UserInformationsContainer extends UserFormController implements OnChanges {
-
+export class UserInformationsContainer extends UserFormController implements OnInit, OnChanges {
+  
   currentTabIndex: number = 0;
+  countriesList: CountriesList = [];
+
+  private readonly _countriesService = inject(CountriesService);
 
   @Input({ required: true }) userSelected: IUser = {} as IUser;
   @Input({ required: true }) isInEditMode: boolean = false;
 
+  ngOnInit(): void {
+    this.getCountriesList();
+  }
+  
   ngOnChanges(changes: SimpleChanges): void {
     this.currentTabIndex = 0;
 
@@ -23,5 +33,11 @@ export class UserInformationsContainer extends UserFormController implements OnC
     if (HAS_USER_SELECTED) {
       this.fulFillUserForm(this.userSelected);
     }
+  }
+
+  getCountriesList() {
+    this._countriesService.getCountries().pipe(take(1)).subscribe((countriesList: CountriesList)=> {
+      this.countriesList = countriesList;
+    });
   }
 }
