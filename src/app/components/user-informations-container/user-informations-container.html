@@ -1,10 +1,10 @@
 <mat-tab-group [selectedIndex]="currentTabIndex" (selectedIndexChange)="currentTabIndex = $event">
     <mat-tab label="General">
-        <app-general-informations [user]="userSelected"></app-general-informations>
+        <app-general-informations *ngIf="!isInEditMode" [user]="userSelected"></app-general-informations>
         <ng-container *ngIf="countriesList$ | async as countries">
             <ng-container *ngIf="statesList$ | async as states">
-                <app-general-informations-edit [userForm]="userForm" [countriesList]="countries" [statesList]="states"
-                    (onCountrySelected)="onCountrySelected($event)">
+                <app-general-informations-edit *ngIf="isInEditMode" [userForm]="userForm" [countriesList]="countries"
+                    [statesList]="states" (onCountrySelected)="onCountrySelected($event)">
                 </app-general-informations-edit>
             </ng-container>
         </ng-container>
