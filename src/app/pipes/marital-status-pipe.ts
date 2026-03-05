@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { MaritalStatusEnum } from '../enums/marital-status.enum';
+import { maritalStatusDescriptionMap } from '../utils/marital-status-description-map';
 
 @Pipe({
   name: 'maritalStatus',
@@ -8,13 +9,7 @@ import { MaritalStatusEnum } from '../enums/marital-status.enum';
 export class MaritalStatusPipe implements PipeTransform {
 
   transform(maritalStatus: number | undefined): string {
-    const maritalStatusMap: {[key in MaritalStatusEnum]: string} = {
-      [MaritalStatusEnum.SINGLE]: 'Single',
-      [MaritalStatusEnum.MARRIED]: 'Married',
-      [MaritalStatusEnum.DIVORCED]: 'Diverced'
-    };
-
-    return maritalStatus ? maritalStatusMap[maritalStatus as MaritalStatusEnum] : '';
+    return maritalStatus ? maritalStatusDescriptionMap[maritalStatus as MaritalStatusEnum] : '';
   }
 
 }
