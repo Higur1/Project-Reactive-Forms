@@ -18,8 +18,8 @@
                 <mat-label>Country</mat-label>
                 <input type="text" placeholder="Brazil" matInput [matAutocomplete]="autoCountry"
                     formControlName="country">
-                <mat-autocomplete #autoCountry="matAutocomplete">
-                    <mat-option *ngFor="let option of []">{{ '' }}</mat-option>
+                <mat-autocomplete #autoCountry="matAutocomplete" (optionSelected)="onCountrySelected($event)">
+                    <mat-option *ngFor="let country of countriesListFilter" [value]="country.name">{{ country.name }}</mat-option>
                 </mat-autocomplete>
             </mat-form-field>
             <mat-form-field class="w-full">

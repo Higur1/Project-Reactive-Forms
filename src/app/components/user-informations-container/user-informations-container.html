@@ -1,8 +1,10 @@
 <mat-tab-group [selectedIndex]="currentTabIndex" (selectedIndexChange)="currentTabIndex = $event">
     <mat-tab label="General">
         <app-general-informations [user]="userSelected"></app-general-informations>
-        <app-general-informations-edit [userForm]="userForm" [countriesList]="countriesList"></app-general-informations-edit>
+        <app-general-informations-edit *ngIf="countriesList$ | async as countriesList; else loading" [userForm]="userForm" [countriesList]="countriesList"></app-general-informations-edit>
     </mat-tab>
+    <ng-template #loading></ng-template>
+    
     <mat-tab label="Contact">
         <app-contact-informations [user]="userSelected"></app-contact-informations>
         <app-contact-informations-edit></app-contact-informations-edit>

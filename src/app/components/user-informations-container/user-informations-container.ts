@@ -2,7 +2,7 @@ import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@ang
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
 
 @Component({
@@ -14,7 +14,7 @@ import { CountriesList } from '../../types/countries-list';
 export class UserInformationsContainer extends UserFormController implements OnInit, OnChanges {
   
   currentTabIndex: number = 0;
-  countriesList: CountriesList = [];
+  countriesList$!: Observable<CountriesList>;
 
   private readonly _countriesService = inject(CountriesService);
 
@@ -36,8 +36,6 @@ export class UserInformationsContainer extends UserFormController implements OnI
   }
 
   getCountriesList() {
-    this._countriesService.getCountries().pipe(take(1)).subscribe((countriesList: CountriesList)=> {
-      this.countriesList = countriesList;
-    });
+    this.countriesList$ = this._countriesService.getCountries();
   }
 }
