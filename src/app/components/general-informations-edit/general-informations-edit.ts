@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CountriesList } from '../../types/countries-list';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { StatesList } from '../../types/states-list';
 
 @Component({
   selector: 'app-general-informations-edit',
@@ -11,17 +12,23 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 })
 export class GeneralInformationsEdit implements OnInit, OnChanges {
 
-  countriesListFilter: CountriesList = [];
+  countriesListFiltered: CountriesList = [];
+  statesListFiltered: StatesList = [];
 
   @Input({ required: true }) userForm!: FormGroup;
   @Input({ required: true }) countriesList: CountriesList = [];
+  @Input({ required: true }) statesList: StatesList = [];
+
+  @Output('onCountrySelected') onCountrySelectedEmitt = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.watchCountryFormChangesAndFilter();
+    this.watchStatesFormChangesAndFilter();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.countriesListFilter = this.countriesList;
+    this.countriesListFiltered = this.countriesList;
+    this.statesListFiltered = this.statesList;
   }
 
   get emailControl(): FormControl {
@@ -32,8 +39,12 @@ export class GeneralInformationsEdit implements OnInit, OnChanges {
     return this.userForm.get('generalInformations.country') as FormControl;
   }
 
-  onCountrySelected($event: MatAutocompleteSelectedEvent) {
-    
+  get statesControl(): FormControl {
+    return this.userForm.get('generalInformations.state') as FormControl;
+  }
+
+  onCountrySelected(event: MatAutocompleteSelectedEvent) {
+    this.onCountrySelectedEmitt.emit(event.option.value);
   }
 
   private watchCountryFormChangesAndFilter() {
@@ -44,7 +55,15 @@ export class GeneralInformationsEdit implements OnInit, OnChanges {
     }) */
   }
 
+  private watchStatesFormChangesAndFilter() {
+    this.statesControl.valueChanges.subscribe(this.filterStateList.bind(this));
+  }
+
   private filterCountriesList(searchTerm: string) {
-    this.countriesListFilter = this.countriesList.filter((country) => country.name.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
+    this.countriesListFiltered = this.countriesList.filter((country) => country.name.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
+  }
+
+  private filterStateList(searchTerm: string) {
+    this.statesListFiltered = this.statesList.filter((state) => state.name.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
   }
 }

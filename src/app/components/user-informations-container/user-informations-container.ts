@@ -2,8 +2,10 @@ import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@ang
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
-import { Observable, take } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
+import { StatesService } from '../../services/states.service';
+import { StatesList } from '../../types/states-list';
 
 @Component({
   selector: 'app-user-informations-container',
@@ -12,19 +14,21 @@ import { CountriesList } from '../../types/countries-list';
   styleUrl: './user-informations-container.scss',
 })
 export class UserInformationsContainer extends UserFormController implements OnInit, OnChanges {
-  
+
   currentTabIndex: number = 0;
-  countriesList$!: Observable<CountriesList>;
+  countriesList$: Observable<CountriesList> = of([]);
+  statesList$: Observable<StatesList> = of([]);
 
   private readonly _countriesService = inject(CountriesService);
+  private readonly _statesService = inject(StatesService);
 
   @Input({ required: true }) userSelected: IUser = {} as IUser;
   @Input({ required: true }) isInEditMode: boolean = false;
 
   ngOnInit(): void {
-    this.getCountriesList();
+    this.countriesList$ = this._countriesService.getCountries();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     this.currentTabIndex = 0;
 
@@ -32,10 +36,12 @@ export class UserInformationsContainer extends UserFormController implements OnI
 
     if (HAS_USER_SELECTED) {
       this.fulFillUserForm(this.userSelected);
+
+      this.statesList$ = this._statesService.getStates(this.userSelected.country);
     }
   }
 
-  getCountriesList() {
-    this.countriesList$ = this._countriesService.getCountries();
+  onCountrySelected(countryName: string) {
+    this.statesList$ = this._statesService.getStates(countryName);
   }
 }
