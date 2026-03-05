@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
+import { NgxMaskDirective, provideNgxMask } from "ngx-mask"
+
 import { AngularMaterialModule } from "../angular-material/angular-material-module";
 import { PipesModule } from "../pipes/pipes-module";
 
@@ -42,7 +44,8 @@ import { UserDependentsListEdit } from './user-dependents-list-edit/user-depende
         CommonModule,
         AngularMaterialModule,
         PipesModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxMaskDirective
     ],
     exports: [
         UsersList,
@@ -51,6 +54,10 @@ import { UserDependentsListEdit } from './user-dependents-list-edit/user-depende
         UserDependentsList,
         ButtonsConteiners,
         UserInformationsContainer
+    ],
+    providers: [
+        provideNgxMask()
     ]
+
 })
 export class ComponentsModule { }
