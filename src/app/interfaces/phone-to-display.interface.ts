@@ -1,4 +1,5 @@
 export interface IphoneToDisplay {
-  type: string,
-  number: string
+  type: number;
+  typeDescription: string;
+  number: string;
 }
