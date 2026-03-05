@@ -9,8 +9,8 @@
             <mat-form-field class="w-full">
                 <mat-label>Email:</mat-label>
                 <input matInput placeholder="Example@email.com" formControlName="email">
-                <mat-error *ngIf="emailControl.hasError('required')">Email is required</mat-error>
-                <mat-error *ngIf="emailControl.hasError('pattern')">Enter a valid email address</mat-error>
+                <mat-error *ngIf="emailControl.hasError('required')">Email is required.</mat-error>
+                <mat-error *ngIf="emailControl.hasError('pattern')">Enter a valid email address.</mat-error>
             </mat-form-field>
         </div>
         <div class="grid lg:grid-cols3 grp-4">
@@ -48,13 +48,15 @@
                 <span matTextPrefix *ngIf="monthlyIncome.value">U$</span>
                 <input #monthlyIncome matInput placeholder="U$1000,00" formControlName="monthlyIncome"
                     mask="separator.2" thousandSeparator="." decimalSeparator=",">
+                <mat-error>Monthly income is required.</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Date of birth:</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="birthDate">
+                <input matInput [matDatepicker]="picker" formControlName="birthDate" readonly>
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error>Birth date is required.</mat-error>
             </mat-form-field>
         </div>
     </ng-container>

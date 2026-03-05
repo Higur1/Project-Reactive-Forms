@@ -4,6 +4,7 @@ import { IUser } from "../../interfaces/user/user.interface";
 import { PhoneList } from "../../types/phone-list";
 import { AddressList } from "../../types/address-list";
 import { DependentsList } from "../../types/dependents-list";
+import { convertToDateObj } from "../../utils/convertToDateObj";
 
 export class UserFormController {
     userForm!: FormGroup;
@@ -53,7 +54,12 @@ export class UserFormController {
     }
 
     private fulFillGeneralInformations(user: IUser) {
-        this.generalInformations.patchValue(user);
+        const newUser = {
+            ...user,
+            birthDate: convertToDateObj(user.birthDate)
+        }
+
+        this.generalInformations.patchValue(newUser);
     }
 
     private fulFillPhoneList(userPhoneList: PhoneList) {

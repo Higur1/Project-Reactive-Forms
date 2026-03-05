@@ -65,10 +65,10 @@ export class GeneralInformationsEdit implements OnInit, OnChanges {
   }
 
   private filterCountriesList(searchTerm: string) {
-    this.countriesListFiltered = this.countriesList.filter((country) => country.name.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
+    this.countriesListFiltered = this.countriesList.filter((country) => country.name?.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
   }
 
   private filterStateList(searchTerm: string) {
-    this.statesListFiltered = this.statesList.filter((state) => state.name.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
+    this.statesListFiltered = this.statesList.filter((state) => state.name?.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
   }
 }
