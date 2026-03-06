@@ -6,6 +6,8 @@
                 <mat-label>{{ phoneList.value[i].typeDescription }}</mat-label>
                 <input matInput [placeholder]="phoneList.value[i].value | phonePlaceholder"
                     [mask]="phoneList.value[i].type | phoneMask" formControlName="number">
+                <mat-error *ngIf="phone.get('number')?.hasError('required')">Phone is required.</mat-error>
+                <mat-error *ngIf="phone.get('number')?.hasError('mask')">Enter a valid phone.</mat-error>
             </mat-form-field>
         </ng-containter>
     </ng-container>
