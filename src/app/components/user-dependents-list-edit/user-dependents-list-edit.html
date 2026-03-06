@@ -12,14 +12,18 @@
                 <mat-form-field>
                     <mat-label>Name:</mat-label>
                     <input matInput formControlName="name">
+                    <mat-error>Name is required.</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Age:</mat-label>
                     <input matInput formControlName="age">
+                    <mat-error>Age is required.</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Document:</mat-label>
-                    <input matInput formControleName="document">
+                    <input matInput formControlName="document" mask="000.000.000-00">
+                    <mat-error *ngIf="dependent.get('document')?.hasError('required')">Document is required.</mat-error>
+                    <mat-error *ngIf="dependent.get('document')?.hasError('mask')">Enter a valid document.</mat-error>
                 </mat-form-field>
 
                 <div class="flex justify-center items-baseline box-border p-2">
