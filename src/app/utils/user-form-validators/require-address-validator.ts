@@ -10,9 +10,9 @@ export const requiredAddressValidator: ValidatorFn = (control: AbstractControl):
         const control = addressGroup.get(controlName);
 
         if (hasAnyText) {
-            if (control?.value) {
+            if (!control?.value) {
                 control?.setErrors({ requiredAddressControl: true });
-                control.markAsTouched();
+                control?.markAsTouched();
             } else {
                 control?.setErrors(null);
             }
