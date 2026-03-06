@@ -1,8 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AddressList } from '../../../../types/address-list';
 import { AddressTypeEnum } from '../../../../enums/address-type.enum';
-import { IAddress } from '../../../../interfaces/user/address.interface';
-
+import { prepareAddressList } from '../../../../utils/prepare-address-list';
 
 export const addressTypeDescriptionMap: { [key in AddressTypeEnum]: string } = {
   [AddressTypeEnum.RESIDENTIAL]: 'Residential',
@@ -18,10 +17,8 @@ export const addressTypeDescriptionMap: { [key in AddressTypeEnum]: string } = {
 })
 export class AddressGroup implements OnChanges {
 
-
   addressListToDisplay: any[] = [];
   @Input({ required: true }) userAddressList: AddressList | undefined = [];
-
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -31,30 +28,14 @@ export class AddressGroup implements OnChanges {
       this.prepareAddressListToDisplay();
     }
   }
+
   prepareAddressListToDisplay() {
     this.addressListToDisplay = [];
 
-    Object.keys(addressTypeDescriptionMap).map(Number).forEach((addressType: number) => {
-      const addressFound = this.userAddressList?.find((userAddress) => userAddress.type === addressType)
+    const originaluserAddressList = this.userAddressList && this.userAddressList.length > 0 ? this.userAddressList : [];
 
-      this.addressListToDisplay.push(this.returnAddressToDisplay(addressFound, addressType));
-    })
-  }
-  returnAddressToDisplay(address: IAddress | undefined, addressType: number): any {
-    if (!address) {
-      return {
-        typeDescription: addressTypeDescriptionMap[addressType as AddressTypeEnum],
-        type: addressType,
-        street: '-',
-        complement: '-',
-        country: '-',
-        state: '-',
-        city: '-'
-      };
-    }
-    return {
-      typeDescription: addressTypeDescriptionMap[addressType as AddressTypeEnum],
-      ...address,
-    };
+    prepareAddressList(originaluserAddressList, true, (address) => {
+      this.addressListToDisplay.push(address);
+    });
   }
 }
