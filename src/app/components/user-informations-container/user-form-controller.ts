@@ -9,6 +9,7 @@ import { preparePhoneList } from "../../utils/prepare-phone-list";
 import { PhoneTypeEnum } from "../../enums/phone-type.enum";
 import { prepareAddressList } from "../../utils/prepare-address-list";
 import { requiredAddressValidator } from "../../utils/user-form-validators/require-address-validator";
+import { IDependent } from "../../interfaces/user/dependent.interface";
 
 export class UserFormController {
     userForm!: FormGroup;
@@ -47,6 +48,10 @@ export class UserFormController {
         this.fulFillAddressList(user.addressList);
 
         this.fulFillDependentsList(user.dependentsList);
+    }
+
+    addDependent() {
+        this.dependentsList.push(this.createDependentGroup());
     }
 
     removeDependent(dependentIndex: number) {
@@ -100,11 +105,7 @@ export class UserFormController {
 
     private fulFillDependentsList(userDependentsList: DependentsList) {
         userDependentsList.forEach((dependent) => {
-            this.dependentsList.push(this._fb.group({
-                name: [dependent.name, Validators.required],
-                age: [dependent.age, Validators.required],
-                document: [dependent.document, Validators.required],
-            }));
+            this.dependentsList.push(this.createDependentGroup(dependent));
         });
     }
 
@@ -124,6 +125,22 @@ export class UserFormController {
                 addressList: this._fb.array([])
             }),
             dependentsList: this._fb.array([])
+        });
+    }
+
+    private createDependentGroup(dependent: IDependent | null = null) {
+        if (!dependent) {
+            return this._fb.group({
+                name: ['', Validators.required],
+                age: ['', Validators.required],
+                document: ['', Validators.required],
+            });
+        }
+
+        return this._fb.group({
+            name: [dependent.name, Validators.required],
+            age: [dependent.age, Validators.required],
+            document: [dependent.document, Validators.required],
         });
     }
 }
