@@ -8,6 +8,7 @@ import { convertToDateObj } from "../../utils/convertToDateObj";
 import { preparePhoneList } from "../../utils/prepare-phone-list";
 import { PhoneTypeEnum } from "../../enums/phone-type.enum";
 import { prepareAddressList } from "../../utils/prepare-address-list";
+import { requiredAddressValidator } from "../../utils/user-form-validators/require-address-validator";
 
 export class UserFormController {
     userForm!: FormGroup;
@@ -87,6 +88,8 @@ export class UserFormController {
                 country: [address.country],
                 state: [address.state],
                 city: [address.city],
+            }, {
+                validators: requiredAddressValidator
             }));
         });
     }
