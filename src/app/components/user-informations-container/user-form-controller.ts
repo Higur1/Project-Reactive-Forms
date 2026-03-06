@@ -49,6 +49,10 @@ export class UserFormController {
         this.fulFillDependentsList(user.dependentsList);
     }
 
+    removeDependent(dependentIndex: number) {
+        this.dependentsList.removeAt(dependentIndex);
+    }
+
     private resetUserForm() {
         this.userForm.reset();
 

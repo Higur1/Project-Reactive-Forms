@@ -17,6 +17,7 @@
     </mat-tab>
     <mat-tab label="Dependent">
         <app-user-dependents-list [dependentsList]="userSelected.dependentsList"></app-user-dependents-list>
-        <app-user-dependents-list-edit [userForm]="userForm"></app-user-dependents-list-edit>
+        <app-user-dependents-list-edit [userForm]="userForm"
+            (onRemoveDependent)="removeDependent($event)"></app-user-dependents-list-edit>
     </mat-tab>
 </mat-tab-group>
