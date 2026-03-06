@@ -35,7 +35,7 @@ export class AddressGroup implements OnChanges {
     this.addressListToDisplay = [];
 
     Object.keys(addressTypeDescriptionMap).map(Number).forEach((addressType: number) => {
-      const addressFound = this.userAddressList?.find((userAddress) =>userAddress.type === addressType)
+      const addressFound = this.userAddressList?.find((userAddress) => userAddress.type === addressType)
 
       this.addressListToDisplay.push(this.returnAddressToDisplay(addressFound, addressType));
     })
