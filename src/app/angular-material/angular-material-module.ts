@@ -8,6 +8,8 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatTabsModule } from "@angular/material/tabs";
 import { provideNativeDateAdapter } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog";
 
 
 @NgModule({
@@ -19,7 +21,12 @@ import { MatIconModule } from "@angular/material/icon";
         MatAutocompleteModule,
         MatRadioModule,
         MatDatepickerModule,
-        MatIconModule
+        MatIconModule,
+        MatButtonModule,
+        MatDialogActions,
+        MatDialogClose,
+        MatDialogTitle,
+        MatDialogContent
     ],
     exports: [
         MatCardModule,
@@ -29,7 +36,12 @@ import { MatIconModule } from "@angular/material/icon";
         MatAutocompleteModule,
         MatRadioModule,
         MatDatepickerModule,
-        MatIconModule
+        MatIconModule,
+        MatButtonModule,
+        MatDialogActions,
+        MatDialogClose,
+        MatDialogTitle,
+        MatDialogContent
     ],
     providers: [provideNativeDateAdapter()]
 })

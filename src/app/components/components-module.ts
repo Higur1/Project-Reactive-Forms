@@ -21,6 +21,7 @@ import { ContactInformationsEdit } from './contact-informations-edit/contact-inf
 import { ContactPhoneEdit } from './contact-informations-edit/components/contact-phone-edit/contact-phone-edit';
 import { AddressGroupEdit } from './contact-informations-edit/components/address-group-edit/address-group-edit';
 import { UserDependentsListEdit } from './user-dependents-list-edit/user-dependents-list-edit';
+import { ConfirmationDialog } from './confirmation-dialog/confirmation-dialog';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { UserDependentsListEdit } from './user-dependents-list-edit/user-depende
         ContactInformationsEdit,
         ContactPhoneEdit,
         AddressGroupEdit,
-        UserDependentsListEdit
+        UserDependentsListEdit,
+        ConfirmationDialog
     ],
     imports: [
         CommonModule,
@@ -53,7 +55,8 @@ import { UserDependentsListEdit } from './user-dependents-list-edit/user-depende
         ContactInformations,
         UserDependentsList,
         ButtonsConteiners,
-        UserInformationsContainer
+        UserInformationsContainer,
+        ConfirmationDialog
     ],
     providers: [
         provideNgxMask()

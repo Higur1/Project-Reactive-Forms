@@ -1,17 +1,28 @@
 <div class="p-4 max-w-screen-xl mx-auto">
     <mat-card>
         <mat-card-content>
-            <app-users-list *ngIf="usersList$ | async as usersList; else loading" [isInEditMode]="isInEditMode"
-                [usersList]="usersList" (onUserSelected)="onUserSelected($event, usersList)">
+            <app-users-list 
+                *ngIf="usersList$ | async as usersList; else loading" 
+                [isInEditMode]="isInEditMode"
+                [usersList]="usersList" 
+                (onUserSelected)="onUserSelected($event, usersList)">
             </app-users-list>
 
             <ng-template #loading></ng-template>
-            <app-buttons-conteiners [isInEditMode]="isInEditMode" (onEditButton)="onEditButton()"
-                (onCancelButton)="onCancelButton()" *ngIf="userSelected" [enableSaveButton]="eneableSaveButton">
+            <app-buttons-conteiners 
+                [isInEditMode]="isInEditMode" 
+                (onEditButton)="onEditButton()"
+                (onCancelButton)="onCancelButton()" 
+                *ngIf="userSelected" 
+                [enableSaveButton]="enableSaveButton">
             </app-buttons-conteiners>
 
-            <app-user-informations-container *ngIf="userSelected" [isInEditMode]="isInEditMode"
-                [userSelected]="userSelected" (onFormStatusChange)="onFormStatusChange($event)">
+            <app-user-informations-container 
+                *ngIf="userSelected" 
+                [isInEditMode]="isInEditMode"
+                [userSelected]="userSelected" 
+                (onFormStatusChange)="onFormStatusChange($event)"
+                (onFormFirstChange)="onFormatFirstChange()">
             </app-user-informations-container>
         </mat-card-content>
     </mat-card>

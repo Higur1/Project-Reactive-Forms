@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CountriesService } from './services/countries.service';
-import { StatesService } from './services/states.service';
-import { CitiesService } from './services/cities.service';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UsersService } from './services/users.service';
 import { UsersListResponse } from './types/users-list-response';
 import { IUser } from './interfaces/user/user.interface';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-root',
@@ -16,19 +15,18 @@ import { Observable } from 'rxjs';
 export class App implements OnInit {
 
   usersList$!: Observable<UsersListResponse>;
-  usersList: UsersListResponse = [];
 
   userSelectedIndex: number | undefined;
   userSelected: IUser | undefined;
 
   isInEditMode: boolean = false;
-  eneableSaveButton: boolean = false;
+  enableSaveButton: boolean = false;
+  userFormUpdated: boolean = false;
 
   constructor(
-    private readonly _countriesService: CountriesService,
-    private readonly _statesService: StatesService,
-    private readonly _citiesService: CitiesService,
-    private readonly _usersService: UsersService
+    private readonly _usersService: UsersService,
+    private readonly _matDialog: MatDialog,
+    private readonly _cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +43,26 @@ export class App implements OnInit {
   }
 
   onCancelButton() {
-    this.isInEditMode = false;
+    if (!this.userFormUpdated) {
+      this.isInEditMode = false;
+      return;
+    }
+
+    const dialogRef = this._matDialog.open(ConfirmationDialog, {
+      data: {
+        title: 'The form has been changed.',
+        message: 'Do you really want to cancel the changes made to the form?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (!confirmed) return;
+
+      this.isInEditMode = false;
+      this.userFormUpdated = false;
+
+      this._cdr.detectChanges();
+    });
   }
 
   onEditButton() {
@@ -53,6 +70,10 @@ export class App implements OnInit {
   }
 
   onFormStatusChange(formStatus: boolean) {
-    setTimeout(() => this.eneableSaveButton = formStatus, 0);
+    setTimeout(() => this.enableSaveButton = formStatus, 0);
+  }
+
+  onFormatFirstChange() {
+    this.userFormUpdated = true;
   }
 }

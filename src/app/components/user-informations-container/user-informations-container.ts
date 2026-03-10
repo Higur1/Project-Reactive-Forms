@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, inject, Input, Output, EventEmitter, Simp
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
-import { distinctUntilChanged, Observable, of } from 'rxjs';
+import { distinctUntilChanged, Observable, of, take } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
 import { StatesService } from '../../services/states.service';
 import { StatesList } from '../../types/states-list';
@@ -25,6 +25,7 @@ export class UserInformationsContainer extends UserFormController implements OnI
   @Input({ required: true }) isInEditMode: boolean = false;
 
   @Output('onFormStatusChange') onFormStatusChangeEmitt = new EventEmitter<boolean>();
+  @Output('onFormFirstChange') onFormFirstChangeEmitt = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.onUserFormStatusChange();
@@ -39,6 +40,8 @@ export class UserInformationsContainer extends UserFormController implements OnI
     if (HAS_USER_SELECTED) {
       this.fulFillUserForm(this.userSelected);
 
+      this.onUserFormFirstChange();
+
       this.statesList$ = this._statesService.getStates(this.userSelected.country);
     }
   }
@@ -51,5 +54,11 @@ export class UserInformationsContainer extends UserFormController implements OnI
     this.userForm.statusChanges
       .pipe(distinctUntilChanged())
       .subscribe(() => this.onFormStatusChangeEmitt.emit(this.userForm.valid));
+  }
+
+  private onUserFormFirstChange() {
+    this.userForm.valueChanges
+      .pipe(take(1))
+      .subscribe(() => this.onFormFirstChangeEmitt.emit());
   }
 }
