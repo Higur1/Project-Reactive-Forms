@@ -1,8 +1,8 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, inject, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
-import { Observable, of } from 'rxjs';
+import { distinctUntilChanged, Observable, of } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
 import { StatesService } from '../../services/states.service';
 import { StatesList } from '../../types/states-list';
@@ -14,7 +14,6 @@ import { StatesList } from '../../types/states-list';
   styleUrl: './user-informations-container.scss',
 })
 export class UserInformationsContainer extends UserFormController implements OnInit, OnChanges {
-
   currentTabIndex: number = 0;
   countriesList$: Observable<CountriesList> = of([]);
   statesList$: Observable<StatesList> = of([]);
@@ -25,7 +24,10 @@ export class UserInformationsContainer extends UserFormController implements OnI
   @Input({ required: true }) userSelected: IUser = {} as IUser;
   @Input({ required: true }) isInEditMode: boolean = false;
 
+  @Output('onFormStatusChange') onFormStatusChangeEmitt = new EventEmitter<boolean>();
+
   ngOnInit(): void {
+    this.onUserFormStatusChange();
     this.countriesList$ = this._countriesService.getCountries();
   }
 
@@ -43,5 +45,11 @@ export class UserInformationsContainer extends UserFormController implements OnI
 
   onCountrySelected(countryName: string) {
     this.statesList$ = this._statesService.getStates(countryName);
+  }
+
+  private onUserFormStatusChange() {
+    this.userForm.statusChanges
+      .pipe(distinctUntilChanged())
+      .subscribe(() => this.onFormStatusChangeEmitt.emit(this.userForm.valid));
   }
 }

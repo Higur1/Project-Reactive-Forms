@@ -7,11 +7,11 @@
 
             <ng-template #loading></ng-template>
             <app-buttons-conteiners [isInEditMode]="isInEditMode" (onEditButton)="onEditButton()"
-                (onCancelButton)="onCancelButton()" *ngIf="userSelected">
+                (onCancelButton)="onCancelButton()" *ngIf="userSelected" [enableSaveButton]="eneableSaveButton">
             </app-buttons-conteiners>
 
             <app-user-informations-container *ngIf="userSelected" [isInEditMode]="isInEditMode"
-                [userSelected]="userSelected">
+                [userSelected]="userSelected" (onFormStatusChange)="onFormStatusChange($event)">
             </app-user-informations-container>
         </mat-card-content>
     </mat-card>

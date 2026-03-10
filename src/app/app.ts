@@ -15,12 +15,14 @@ import { Observable } from 'rxjs';
 })
 export class App implements OnInit {
 
-
   usersList$!: Observable<UsersListResponse>;
   usersList: UsersListResponse = [];
+
   userSelectedIndex: number | undefined;
   userSelected: IUser | undefined;
+
   isInEditMode: boolean = false;
+  eneableSaveButton: boolean = false;
 
   constructor(
     private readonly _countriesService: CountriesService,
@@ -45,7 +47,12 @@ export class App implements OnInit {
   onCancelButton() {
     this.isInEditMode = false;
   }
+
   onEditButton() {
     this.isInEditMode = true;
+  }
+
+  onFormStatusChange(formStatus: boolean) {
+    setTimeout(() => this.eneableSaveButton = formStatus, 0);
   }
 }

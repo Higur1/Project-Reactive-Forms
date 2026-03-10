@@ -3,8 +3,8 @@
         (click)="onEditButton()" *ngIf="!isInEditMode">Edit</button>
     <button class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-red-600 hover:bg-red-500"
         (click)="onCancelButton()" *ngIf="isInEditMode">Cancel</button>
-    <button
-        class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-green-600 hover:bg-green-500"
-        *ngIf="isInEditMode"
-        >Save</button>
+    <button class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white " [ngClass]="{
+            'bg-green-200': !enableSaveButton,
+            'bg-green-600 hover:bg-green-500': enableSaveButton
+        }" [disabled]="!enableSaveButton" *ngIf="isInEditMode">Save</button>
 </div>
