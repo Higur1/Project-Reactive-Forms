@@ -26,6 +26,10 @@ export class UserFormController {
         return this.userForm.get('generalInformations') as FormGroup;
     }
 
+    get contactInformations(): FormGroup {
+        return this.userForm.get('contactInformations') as FormGroup;
+    }
+
     get phoneList(): FormArray {
         return this.userForm.get('contactInformations.phoneList') as FormArray;
     }
@@ -38,6 +42,18 @@ export class UserFormController {
         return this.userForm.get('dependentsList') as FormArray;
     }
 
+    get generalInformationsValid(): boolean {
+        return this.generalInformations.valid;
+    }
+
+    get contactInformationValid(): boolean {
+        return this.contactInformations.valid;
+    }
+
+    get dependentsListValid(): boolean {
+        return this.dependentsList.valid;
+    }
+
     fulFillUserForm(user: IUser) {
         this.resetUserForm();
 
@@ -48,6 +64,9 @@ export class UserFormController {
         this.fulFillAddressList(user.addressList);
 
         this.fulFillDependentsList(user.dependentsList);
+
+        this.userForm.markAllAsTouched();
+        this.userForm.updateValueAndValidity();
     }
 
     addDependent() {
