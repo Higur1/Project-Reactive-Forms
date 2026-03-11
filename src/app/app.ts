@@ -5,6 +5,7 @@ import { IUser } from './interfaces/user/user.interface';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
+import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,6 @@ import { ConfirmationDialog } from './components/confirmation-dialog/confirmatio
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-
   usersList$!: Observable<UsersListResponse>;
 
   userSelectedIndex: number | undefined;
@@ -42,34 +42,40 @@ export class App implements OnInit {
     }
   }
 
+  onEditButton() {
+    this.isInEditMode = true;
+  }
+
   onCancelButton() {
     if (!this.userFormUpdated) {
       this.isInEditMode = false;
       return;
     }
 
-    this._matDialog.open(ConfirmationDialog, {
-      data: {
-        title: 'The form has been changed.',
-        message: 'Do you really want to cancel the changes made to the form?'
-      }
-    })
-      .afterClosed()
-      .subscribe((confirmed: boolean) => {
-        if (confirmed) return;
-
+    this.openConfirmationDialog({
+      title: 'The form has been changed.',
+      message: 'Do you really want to cancel the changes made to the form?'
+    },
+      (value: boolean) => {
+        if (!value) return;
         this.userFormUpdated = false;
         this.exitEditMode();
-      });
+      }
+    );
   }
 
-  private exitEditMode(): void {
-    this.isInEditMode = false;
-    this._cdr.detectChanges();
-  }
-
-  onEditButton() {
-    this.isInEditMode = true;
+  onSaveButton() {
+    this.openConfirmationDialog({
+      title: 'Confirm data change.',
+      message: 'Do you really want to save the changed information?'
+    },
+      (value: boolean) => {
+        if (!value) return;
+        this.saveUserInfos();
+        this.userFormUpdated = false;
+        this.exitEditMode();
+      }
+    );
   }
 
   onFormStatusChange(formStatus: boolean) {
@@ -79,4 +85,19 @@ export class App implements OnInit {
   onFormatFirstChange() {
     this.userFormUpdated = true;
   }
+
+  private exitEditMode(): void {
+    this.isInEditMode = false;
+    this._cdr.detectChanges();
+  }
+
+  private openConfirmationDialog(data: IDialogConfirmationData, callback: (value: boolean) => void) {
+    this._matDialog.open(ConfirmationDialog, {
+      data
+    })
+      .afterClosed()
+      .subscribe(callback);
+  }
+
+  private saveUserInfos() { }
 }
