@@ -54,10 +54,6 @@ export class GeneralInformationsEdit implements OnInit, OnChanges {
 
   private watchCountryFormChangesAndFilter() {
     this.countryControl.valueChanges.subscribe(this.filterCountriesList.bind(this));
-
-    /* this.countryControl.valueChanges.subscribe((value: string) => {
-      this.filterCountriesList(value);
-    }) */
   }
 
   private watchStatesFormChangesAndFilter() {
@@ -65,10 +61,12 @@ export class GeneralInformationsEdit implements OnInit, OnChanges {
   }
 
   private filterCountriesList(searchTerm: string) {
+    if (!searchTerm) return;
     this.countriesListFiltered = this.countriesList.filter((country) => country.name?.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
   }
 
   private filterStateList(searchTerm: string) {
+    if (!searchTerm) return;
     this.statesListFiltered = this.statesList.filter((state) => state.name?.toLocaleLowerCase().includes(searchTerm.toLowerCase().trim()));
   }
 }
