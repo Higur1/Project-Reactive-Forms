@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UsersService } from './services/users.service';
 import { UsersListResponse } from './types/users-list-response';
 import { IUser } from './interfaces/user/user.interface';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
+import { UpdateUserService } from './services/update-user-service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,8 @@ export class App implements OnInit {
   constructor(
     private readonly _usersService: UsersService,
     private readonly _matDialog: MatDialog,
-    private readonly _cdr: ChangeDetectorRef
+    private readonly _cdr: ChangeDetectorRef,
+    private readonly _updateUserService: UpdateUserService
   ) { }
 
   ngOnInit(): void {
@@ -99,5 +101,19 @@ export class App implements OnInit {
       .subscribe(callback);
   }
 
-  private saveUserInfos() { }
+  private saveUserInfos() {
+    const newUser: IUser = this.convertUserFormToUser();
+
+    this._updateUserService.updateUser(newUser).subscribe((newUserResponse: IUser) => {
+      if (this.userSelectedIndex === undefined) return;
+
+      this.usersList$.subscribe(response => {
+        response[this.userSelectedIndex!] = newUserResponse;
+      });
+    });
+  }
+
+  private convertUserFormToUser(): IUser {
+    return {} as IUser;
+  }
 }
