@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, inject, Input, Output, EventEmitter, Simp
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserFormController } from './user-form-controller';
 import { CountriesService } from '../../services/countries.service';
-import { distinctUntilChanged, Observable, of, take } from 'rxjs';
+import { distinctUntilChanged, Observable, of, Subscription, take } from 'rxjs';
 import { CountriesList } from '../../types/countries-list';
 import { StatesService } from '../../services/states.service';
 import { StatesList } from '../../types/states-list';
@@ -17,6 +17,7 @@ export class UserInformationsContainer extends UserFormController implements OnI
   currentTabIndex: number = 0;
   countriesList$: Observable<CountriesList> = of([]);
   statesList$: Observable<StatesList> = of([]);
+  userFormValueChangesSubs!: Subscription;
 
   private readonly _countriesService = inject(CountriesService);
   private readonly _statesService = inject(StatesService);
@@ -38,8 +39,9 @@ export class UserInformationsContainer extends UserFormController implements OnI
     const HAS_USER_SELECTED = changes['userSelected'] && Object.keys(changes['userSelected'].currentValue).length > 0;
 
     if (HAS_USER_SELECTED) {
-      this.fulFillUserForm(this.userSelected);
+      this.userFormValueChangesSubs?.unsubscribe;
 
+      this.fulFillUserForm(this.userSelected);
       this.onUserFormFirstChange();
 
       this.statesList$ = this._statesService.getStates(this.userSelected.country);
@@ -51,7 +53,7 @@ export class UserInformationsContainer extends UserFormController implements OnI
   }
 
   private onUserFormStatusChange() {
-    this.userForm.statusChanges
+    this.userFormValueChangesSubs = this.userForm.statusChanges
       .pipe(distinctUntilChanged())
       .subscribe(() => this.onFormStatusChangeEmitt.emit(this.userForm.valid));
   }
