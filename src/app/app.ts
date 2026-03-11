@@ -48,21 +48,24 @@ export class App implements OnInit {
       return;
     }
 
-    const dialogRef = this._matDialog.open(ConfirmationDialog, {
+    this._matDialog.open(ConfirmationDialog, {
       data: {
         title: 'The form has been changed.',
         message: 'Do you really want to cancel the changes made to the form?'
       }
-    });
+    })
+      .afterClosed()
+      .subscribe((confirmed: boolean) => {
+        if (confirmed) return;
 
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (!confirmed) return;
+        this.userFormUpdated = false;
+        this.exitEditMode();
+      });
+  }
 
-      this.isInEditMode = false;
-      this.userFormUpdated = false;
-
-      this._cdr.detectChanges();
-    });
+  private exitEditMode(): void {
+    this.isInEditMode = false;
+    this._cdr.detectChanges();
   }
 
   onEditButton() {
