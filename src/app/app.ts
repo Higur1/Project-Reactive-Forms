@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UsersService } from './services/users.service';
 import { UsersListResponse } from './types/users-list-response';
 import { IUser } from './interfaces/user/user.interface';
-import { Observable, switchMap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
 import { UpdateUserService } from './services/update-user.service';
 import { UserFormRawValueService } from './services/user-form-raw-value.service';
+import { convertUserFormToUser } from './utils/convert-user-form-to-user';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { UserFormRawValueService } from './services/user-form-raw-value.service'
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-  usersList$!: Observable<UsersListResponse>;
+  usersList$ = new BehaviorSubject<UsersListResponse>([]);
 
   userSelectedIndex: number | undefined;
   userSelected: IUser | undefined;
@@ -34,7 +35,7 @@ export class App implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.usersList$ = this._usersService.getUsers();
+    this.loadUsers();
   }
 
   onUserSelected(userIndex: number, usersList: UsersListResponse) {
@@ -90,6 +91,12 @@ export class App implements OnInit {
     this.userFormUpdated = true;
   }
 
+  private loadUsers(): void {
+    this._usersService.getUsers().subscribe(users => {
+      this.usersList$.next(users);
+    });
+  }
+
   private exitEditMode(): void {
     this.isInEditMode = false;
     this._cdr.detectChanges();
@@ -104,19 +111,19 @@ export class App implements OnInit {
   }
 
   private saveUserInfos() {
-    const newUser: IUser = this.convertUserFormToUser();
-    this._updateUserService.updateUser(newUser).subscribe(user => this.updateUserInList(user));
-  }
-
-  private convertUserFormToUser(): IUser {
-    return {} as IUser;
+    const newUser: IUser = convertUserFormToUser(this._userFormRawValueService.userFormRawValue);
+    this._updateUserService.updateUser(newUser).subscribe((user) => this.updateUserInList(user));
   }
 
   private updateUserInList(user: IUser) {
     if (this.userSelectedIndex === undefined) return;
 
-    this.usersList$.subscribe(users => {
-      users[this.userSelectedIndex!] = user;
-    });
+    const users = this.usersList$.value;
+    const updatedUsers = [...users];
+
+    updatedUsers[this.userSelectedIndex] = user;
+
+    this.usersList$.next(updatedUsers);
+    this.userSelected = structuredClone(user);
   }
 }

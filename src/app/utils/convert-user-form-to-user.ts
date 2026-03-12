@@ -13,9 +13,9 @@ export const convertUserFormToUser = (userForm: IUserForm): IUser => {
     let newUser: Partial<IUser> = {} as IUser;
 
     newUser = { ...convertGeneralInformations(userForm.generalInformations) };
-    newUser.phoneList = [...convertPhoneList(userForm.contactInformations.phoneList)];
-    newUser.addressList = [...convertAddressList(userForm.contactInformations.addressList)];
-    newUser.dependentsList = [...convertDepedentList(userForm.dependentList)];
+    newUser.phoneList = convertPhoneList(userForm.contactInformations.phoneList);
+    newUser.addressList = convertAddressList(userForm.contactInformations.addressList);
+    newUser.dependentsList = convertDepedentList(userForm.dependentList);
 
     return newUser as IUser;
 }
@@ -32,30 +32,30 @@ const convertGeneralInformations = (generalInformations: IUserFormGeneralInforma
     };
 }
 
-const convertPhoneList = (phoneList: IUserFormPhone[]): PhoneList => {
-    return phoneList.map((phone) => ({
+const convertPhoneList = (phoneList?: IUserFormPhone[]): PhoneList => {
+    return phoneList?.map((phone) => ({
         type: phone.type,
         internationalCode: phone.number.substring(0, 2),
         areaCode: phone.number.substring(2, 4),
         number: phone.number.substring(4)
-    }));
+    })) ?? [];
 }
 
-const convertAddressList = (addressList: IUserFormAddress[]): AddressList => {
-    return addressList.map((address) => ({
+const convertAddressList = (addressList?: IUserFormAddress[]): AddressList => {
+    return addressList?.map((address) => ({
         type: address.type,
         street: address.street,
         complement: address.complement,
         country: address.country,
         state: address.state,
         city: address.city,
-    }));
+    })) ?? [];
 }
 
-const convertDepedentList = (dependentList: IUserFormDependent[]): DependentsList => {
-    return dependentList.map((dependent) => ({
+const convertDepedentList = (dependentList?: IUserFormDependent[]): DependentsList => {
+    return dependentList?.map((dependent) => ({
         name: dependent.name,
         age: Number(dependent.age),
         document: Number(dependent.document)
-    }));
+    })) ?? [];
 }
