@@ -6,7 +6,8 @@ import { Observable, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog';
 import { IDialogConfirmationData } from './interfaces/dialog-confirmation-data.interface';
-import { UpdateUserService } from './services/update-user-service';
+import { UpdateUserService } from './services/update-user.service';
+import { UserFormRawValueService } from './services/user-form-raw-value.service';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,8 @@ export class App implements OnInit {
     private readonly _usersService: UsersService,
     private readonly _matDialog: MatDialog,
     private readonly _cdr: ChangeDetectorRef,
-    private readonly _updateUserService: UpdateUserService
+    private readonly _updateUserService: UpdateUserService,
+    private readonly _userFormRawValueService: UserFormRawValueService
   ) { }
 
   ngOnInit(): void {
@@ -103,17 +105,18 @@ export class App implements OnInit {
 
   private saveUserInfos() {
     const newUser: IUser = this.convertUserFormToUser();
-
-    this._updateUserService.updateUser(newUser).subscribe((newUserResponse: IUser) => {
-      if (this.userSelectedIndex === undefined) return;
-
-      this.usersList$.subscribe(response => {
-        response[this.userSelectedIndex!] = newUserResponse;
-      });
-    });
+    this._updateUserService.updateUser(newUser).subscribe(user => this.updateUserInList(user));
   }
 
   private convertUserFormToUser(): IUser {
     return {} as IUser;
+  }
+
+  private updateUserInList(user: IUser) {
+    if (this.userSelectedIndex === undefined) return;
+
+    this.usersList$.subscribe(users => {
+      users[this.userSelectedIndex!] = user;
+    });
   }
 }
