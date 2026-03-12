@@ -4,7 +4,7 @@ import { IUser } from "../../interfaces/user/user.interface";
 import { PhoneList } from "../../types/phone-list";
 import { AddressList } from "../../types/address-list";
 import { DependentsList } from "../../types/dependents-list";
-import { convertToDateObj } from "../../utils/convertToDateObj";
+import { convertToDateObj } from "../../utils/convert-date-to-obj";
 import { preparePhoneList } from "../../utils/prepare-phone-list";
 import { PhoneTypeEnum } from "../../enums/phone-type.enum";
 import { prepareAddressList } from "../../utils/prepare-address-list";
