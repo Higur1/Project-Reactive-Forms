@@ -8,6 +8,7 @@ import { AddressList } from "../types/address-list";
 import { DependentsList } from "../types/dependents-list";
 import { PhoneList } from "../types/phone-list";
 import { convertObjToDate } from "./convert-obj-to-date";
+import { formatNumber } from "./format-number";
 
 export const convertUserFormToUser = (userForm: IUserForm): IUser => {
     let newUser: Partial<IUser> = {} as IUser;
@@ -33,12 +34,16 @@ const convertGeneralInformations = (generalInformations: IUserFormGeneralInforma
 }
 
 const convertPhoneList = (phoneList?: IUserFormPhone[]): PhoneList => {
-    return phoneList?.map((phone) => ({
-        type: phone.type,
-        internationalCode: phone.number.substring(0, 2),
-        areaCode: phone.number.substring(2, 4),
-        number: phone.number.substring(4)
-    })) ?? [];
+    return phoneList?.map((phone) => {
+        const digits = phone.number.replace(/\D/g, '');
+
+        return {
+            type: phone.type,
+            internationalCode: '+' + digits.substring(0, 2),
+            areaCode: digits.substring(2, 4),
+            number: formatNumber(digits.substring(4))
+        }
+    }) ?? [];
 }
 
 const convertAddressList = (addressList?: IUserFormAddress[]): AddressList => {
