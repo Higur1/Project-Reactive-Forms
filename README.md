@@ -1,59 +1,276 @@
-# ProjetoReactiveForms
+# 🧑‍💻 Reactive Forms - User Management
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+Aplicação desenvolvida em **Angular** para gerenciamento de usuários utilizando **Reactive Forms**, com arquitetura modular baseada em **components, services e tipagem forte em TypeScript**.
 
-## Development server
+O projeto demonstra boas práticas modernas de desenvolvimento front-end como:
 
-To start a local development server, run:
+* separação de responsabilidades
+* organização escalável de componentes
+* uso de services para lógica de negócio
+* formulários reativos
+* uso de Angular Material para UI
+
+---
+
+# 📸 Funcionalidades
+
+✔️ Listagem de usuários
+
+✔️ Visualização de informações detalhadas 
+
+✔️ Edição de dados pessoais 
+
+✔️ Gerenciamento de telefones 
+
+✔️ Gerenciamento de endereços 
+
+✔️ Gerenciamento de dependentes 
+
+✔️ Validação de formulários com Reactive Forms 
+
+✔️ Máscaras para CPF e telefone 
+
+---
+
+# 🚀 Tecnologias utilizadas
+
+* Angular
+* TypeScript
+* RxJS
+* Angular Material
+* TailwindCSS
+* ngx-mask
+* PNPM
+* Vitest
+
+---
+
+# 🏗️ Arquitetura do projeto
+
+O projeto segue uma estrutura modular baseada em **separação por responsabilidade**.
+
+```
+src/app
+│
+├── components
+├── services
+├── interfaces
+├── enums
+├── pipes
+├── types
+└── angular-material
+```
+
+Cada camada possui uma responsabilidade clara.
+
+---
+
+# 🧩 Estrutura de Components
+
+A pasta `components` contém toda a estrutura visual da aplicação.
+
+```
+components
+│
+├── users-list
+│
+├── user-informations-container
+│
+├── user-info-item
+│
+├── general-informations
+├── general-informations-edit
+│
+├── contact-informations
+├── contact-informations-edit
+│   ├── address-group-edit
+│   └── contact-phone-edit
+│
+├── user-dependents-list
+├── user-dependents-list-edit
+│
+├── buttons-conteiners
+│
+└── confirmation-dialog
+```
+
+### Principais responsabilidades
+
+**users-list**
+
+* Exibe a lista de usuários cadastrados.
+
+**user-informations-container**
+
+* Container principal responsável por organizar as informações do usuário.
+
+**user-info-item**
+
+* Componente reutilizável para exibição de informações individuais.
+
+**general-informations**
+
+* Exibição das informações pessoais do usuário.
+
+**general-informations-edit**
+
+* Formulário para edição dessas informações.
+
+**contact-informations**
+
+* Exibição de telefones e endereços.
+
+**contact-informations-edit**
+
+* Edição de telefones e endereços.
+* Contém subcomponentes:
+
+  * `address-group-edit`
+  * `contact-phone-edit`
+
+**user-dependents-list**
+
+* Lista de dependentes do usuário.
+
+**user-dependents-list-edit**
+
+* Permite edição e manipulação dos dependentes.
+
+**confirmation-dialog**
+
+* Dialog reutilizável para confirmação de ações.
+
+**buttons-conteiners**
+
+* Componente responsável por agrupar botões de ação (salvar, cancelar etc).
+
+---
+
+# ⚙️ Services
+
+A pasta `services` contém a lógica de negócio da aplicação.
+
+Principais serviços:
+
+**users.service**
+
+* Gerenciamento da lista de usuários.
+
+**update-user.service**
+
+* Atualização de informações de usuário.
+
+**user-form-raw-value.service**
+
+* Conversão de dados do formulário.
+
+**countries / states / cities services**
+
+* Fornecimento de dados de localização.
+
+---
+
+# 🧠 Conceitos aplicados
+
+O projeto utiliza vários conceitos importantes do Angular:
+
+### Reactive Forms
+
+Uso de formulários reativos para controle de estado e validação.
+
+### Arquitetura baseada em Services
+
+A lógica de negócio fica isolada da camada de apresentação.
+
+### Pipes customizados
+
+* formatação de CPF
+* formatação de telefone
+* transformação de estado civil
+
+### Tipagem forte
+
+Uso de:
+
+* interfaces
+* enums
+* types
+
+para evitar inconsistências de dados.
+
+---
+
+# 📦 Instalação
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+```
+
+Entre na pasta:
+
+```bash
+cd reactive-forms-project
+```
+
+Instale as dependências:
+
+```bash
+pnpm install
+```
+
+ou
+
+```bash
+npm install
+```
+
+---
+
+# ▶️ Rodando a aplicação
+
+```bash
+pnpm start
+```
+
+ou
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Aplicação disponível em:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+# 🧪 Testes
+
+O projeto utiliza **Vitest** para testes.
+
+Executar testes:
 
 ```bash
-ng generate --help
+pnpm test
 ```
 
-## Building
+---
 
-To build the project run:
+# 📚 Aprendizados demonstrados neste projeto
 
-```bash
-ng build
-```
+* Arquitetura Angular escalável
+* Componentização avançada
+* Gerenciamento de formulários complexos
+* Boas práticas com TypeScript
+* Separação de responsabilidades
+* Reutilização de componentes
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+# 👨‍💻 Autor
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Desenvolvido como projeto de estudo focado em **Angular + Reactive Forms + arquitetura de aplicações front-end escaláveis**.
